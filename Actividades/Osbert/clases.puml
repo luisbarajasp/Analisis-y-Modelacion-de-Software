@@ -1,0 +1,53 @@
+@startuml
+  /'
+    + publico
+    - privado
+    # protegido
+  '/
+  Class ObraArte{
+    + String tipo
+    + int precio
+    + String descripcion
+    + String autor_nombre
+
+    ObraArte()
+  }
+
+  Class Venta{
+    Date fecha
+    int precio
+    Vendedor vendedor
+
+    Venta()
+  }
+  Class Almacen{
+    int calcularPrecio()
+    void hacerOferta()
+    Almacen()
+  }
+  Class Persona{
+    # String nombre
+    # String direccion
+
+    Persona()
+  }
+  Class Vendedor{
+    void aceptarOferta()
+    void rechazarOferta()
+    Vendedor()
+  }
+  Class Comprador{
+    void comprarCuadro()
+    Comprador()
+  }
+
+  Persona <|-- Vendedor
+  Persona <|-- Comprador
+
+  Vendedor --> Venta :realiza
+  Almacen --> Venta :realiza
+
+  ObraArte --* Almacen
+  Comprador --> ObraArte :compra
+
+@enduml

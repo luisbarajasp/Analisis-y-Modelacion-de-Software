@@ -1,0 +1,31 @@
+@startuml
+
+  Class Persona<<Abstract>>{
+    + String Nombre
+    - int Edad
+    # char genero
+
+    virtual void hablar() = 0;
+    Persona()
+
+  }
+  Class Profesor
+  Class Interfaz
+  Class Transporte{
+
+  }
+  Class Asientos{
+
+  }
+  Class Cumbias{
+
+  }
+
+  Persona <|--Profesor : anotation
+  Interfaz <|--Profesor
+  Profesor --> Transporte : usa >
+
+  Transporte o-- Asientos : aggregation
+  Transporte *-- Cumbias : composition
+
+@enduml

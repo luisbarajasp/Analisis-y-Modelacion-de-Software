@@ -1,0 +1,13 @@
+@startuml
+  left to right direction
+  skinparam packageStyle rectangle
+  actor cliente
+  actor Osbert
+  rectangle sistema {
+    cliente -- (compra)
+    Osbert -- (compra)
+    cliente -- (vender)
+    (vender) -- Osbert
+    (Reportes) -- Osbert
+  }
+@enduml
