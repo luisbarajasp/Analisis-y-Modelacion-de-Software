@@ -1,0 +1,20 @@
+@startuml
+
+  Class Product{
+    + void operation()
+    + void operation2()
+  }
+
+  Class Creator{
+    - virtual Product* createProduct(int type) = 0;
+    + Product* factoryMethod(int type)
+  }
+
+  Class CreatorA{
+    + Product* createProduct(int type)
+  }
+
+  Creator <.. CreatorA
+  CreatorA --> Product :returns
+
+@enduml
