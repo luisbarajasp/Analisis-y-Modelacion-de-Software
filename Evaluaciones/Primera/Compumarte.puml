@@ -41,11 +41,17 @@
   }
 
   Computadora <|-- Desktop
+  Computadora --> Desktop :returns
   Computadora <|-- Laptop
+  Computadora --> Laptop :returns
   Computadora <|-- Netbook
+  Computadora --> Netbook :returns
   Computadora <|-- Tablet
+  Computadora --> Tablet :returns
   Computadora <|-- Server_Rack
+  Computadora --> Server_Rack :returns
   Computadora <|-- Server_Tower
+  Computadora --> Server_Tower :returns
   Computadora <-- Creacion :crea
 
 @enduml
