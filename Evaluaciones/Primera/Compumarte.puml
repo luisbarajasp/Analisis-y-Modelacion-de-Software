@@ -15,12 +15,24 @@
   Class Creacion{
     Computadora* crear(int type)
   }
-  Class Desktop
-  Class Laptop
-  Class Netbook
-  Class Tablet
-  Class Server_Rack
-  Class Server_Tower
+  Class Desktop{
+    - Desktop();
+  }
+  Class Laptop{
+    - Laptop();
+  }
+  Class Netbook{
+    - Netbook();
+  }
+  Class Tablet{
+    - Tablet();
+  }
+  Class Server_Rack{
+    - Server_Rack();
+  }
+  Class Server_Tower{
+    - Server_Tower();
+  }
 
   Computadora <|-- Desktop
   Computadora <|-- Laptop

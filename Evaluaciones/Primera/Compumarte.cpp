@@ -23,16 +23,28 @@ public:
 };
 
 class Desktop: public Computadora{
+private:
+    Desktop();
 };
 class Laptop: public Computadora{
+private:
+    Laptop();
 };
 class Netbook: public Computadora{
+private:
+    Netbook();
 };
 class Tablet: public Computadora{
+private:
+    Tablet();
 };
 class Server_Rack: public Computadora{
+private:
+    Server_Rack();
 };
 class Server_Tower: public Computadora{
+private:
+    Server_Tower();
 };
 
 class Creacion{
