@@ -23,28 +23,34 @@ public:
 };
 
 class Desktop: public Computadora{
+    friend class Computadora;
 private:
-    Desktop();
+    Desktop():Computadora(){}
 };
 class Laptop: public Computadora{
+    friend class Computadora;
 private:
-    Laptop();
+    Laptop():Computadora(){}
 };
 class Netbook: public Computadora{
+    friend class Computadora;
 private:
-    Netbook();
+    Netbook():Computadora(){}
 };
 class Tablet: public Computadora{
+    friend class Computadora;
 private:
-    Tablet();
+    Tablet():Computadora(){}
 };
 class Server_Rack: public Computadora{
+    friend class Computadora;
 private:
-    Server_Rack();
+    Server_Rack():Computadora(){}
 };
 class Server_Tower: public Computadora{
+    friend class Computadora;
 private:
-    Server_Tower();
+    Server_Tower():Computadora(){}
 };
 
 class Creacion{
