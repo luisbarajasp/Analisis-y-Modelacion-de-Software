@@ -1,0 +1,33 @@
+@startuml
+
+  Class Computadora{
+    - String tipo
+
+    void seleccionComponentes()
+    void ensambladoComponentes()
+    void instalacionSoftware()
+    void empaquetado()
+    void setTipo(string t)
+    string getTipo()
+    Tipo* factoryMethod() <<template>>
+
+  }
+  Class Creacion{
+    Computadora* crear(int type)
+  }
+  Class Desktop
+  Class Laptop
+  Class Netbook
+  Class Tablet
+  Class Server_Rack
+  Class Server_Tower
+
+  Computadora <|-- Desktop
+  Computadora <|-- Laptop
+  Computadora <|-- Netbook
+  Computadora <|-- Tablet
+  Computadora <|-- Server_Rack
+  Computadora <|-- Server_Tower
+  Computadora <-- Creacion :crea
+
+@enduml
