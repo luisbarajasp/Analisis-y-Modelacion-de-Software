@@ -16,22 +16,28 @@
     Computadora* crear(int type)
   }
   Class Desktop{
-    - Desktop();
+    friend class Computadora;
+    - Desktop():Computadora();
   }
   Class Laptop{
-    - Laptop();
+    friend class Computadora;
+    - Laptop():Computadora();
   }
   Class Netbook{
-    - Netbook();
+    friend class Computadora;
+    - Netbook():Computadora();
   }
   Class Tablet{
-    - Tablet();
+    friend class Computadora;
+    - Tablet():Computadora();
   }
   Class Server_Rack{
-    - Server_Rack();
+    friend class Computadora;
+    - Server_Rack():Computadora();
   }
   Class Server_Tower{
-    - Server_Tower();
+    friend class Computadora;
+    - Server_Tower():Computadora();
   }
 
   Computadora <|-- Desktop
