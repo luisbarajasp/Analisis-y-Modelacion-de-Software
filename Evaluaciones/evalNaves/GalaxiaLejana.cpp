@@ -140,63 +140,81 @@ public:
                 int diffX = 0;
                 int diffY = 0;
 
-                int movement = rand() % 8;
+                int posibleMovement[8] = {0,1,2,3,4,5,6,7};
 
-                if(prevX == 9 && (movement > 4)){
+                int indexMovement = rand() % 8;
 
-                    movement -= 4;
-
-                }
-
-                if(prevY == 9){
-                    if (movement < 2){
-                        movement += 4;
+                if (prevX == 9 && prevY == 9){
+                    int pMovement[8] = {0,1,2,0,1,2,0,1};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
                     }
-
-                    if (movement > 6){
-                        movement -= 4;
+                } else if (prevX == 9 && prevY == 0){
+                    int pMovement[8] = {0,7,6,0,7,6,0,7};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevX == 9){
+                    int pMovement[8] = {0,1,2,7,6,0,1,2};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevX == 0 && prevY == 9){
+                    int pMovement[8] = {2,3,4,2,3,4,2,3};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevX == 0 && prevY == 0){
+                    int pMovement[8] = {4,5,6,4,5,6,4,5};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevX == 0){
+                    int pMovement[8] = {2,3,4,5,6,5,2,3};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevY == 0){
+                    int pMovement[8] = {0,7,6,5,4,0,7,6};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
+                    }
+                } else if (prevY == 9){
+                    int pMovement[8] = {0,1,2,3,4,0,1,2};
+                    for (int i = 0; i < 8; i++) {
+                        posibleMovement[i] = pMovement[i];
                     }
                 }
 
-                if(prevX == 0 && (movement > 0 && movement < 4)){
-
-                    movement += 4;
-
-                }
-
-                if(prevY == 0){
-                    if (movement > 2 && movement < 6){
-                        movement -= 3;
-                    }
-                }
+                int movement = posibleMovement[indexMovement];
 
                 switch (movement) {
                     case 0:
-                    diffY++;
+                    diffX--;
                     break;
                     case 1:
                     diffX--;
-                    diffY++;
+                    diffY--;
                     break;
                     case 2:
-                    diffX--;
+                    diffY--;
                     break;
                     case 3:
-                    diffX--;
+                    diffX++;
                     diffY--;
                     break;
                     case 4:
-                    diffY--;
+                    diffX++;
                     break;
                     case 5:
                     diffX++;
-                    diffY--;
+                    diffY++;
                     break;
                     case 6:
-                    diffX++;
+                    diffY++;
                     break;
                     case 7:
-                    diffX++;
+                    diffX--;
                     diffY++;
                     break;
                     default:
@@ -208,35 +226,9 @@ public:
 
                 // If this position in board is equal to -1, it means this position is blocked
                 while(board[x][y] == -1){
-                    movement = rand() % 8;
+                    indexMovement = rand() % 8;
 
-                    if(prevX == 9 && (movement > 4)){
-
-                        movement -= 4;
-
-                    }
-
-                    if(prevY == 9){
-                        if (movement < 2){
-                            movement += 4;
-                        }
-
-                        if (movement > 6){
-                            movement -= 4;
-                        }
-                    }
-
-                    if(prevX == 0 && (movement > 0 && movement < 4)){
-
-                        movement += 4;
-
-                    }
-
-                    if(prevY == 0){
-                        if (movement > 2 && movement < 6){
-                            movement -= 3;
-                        }
-                    }
+                    movement = posibleMovement[indexMovement];
 
                     switch (movement) {
                         case 0:
