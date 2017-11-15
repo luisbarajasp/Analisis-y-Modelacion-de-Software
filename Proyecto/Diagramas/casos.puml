@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Administrador
+actor Sistema
+rectangle SistemaResidencias {
+  Administrador -- (Registro)
+  
+  (Registro) -- Sistema
+  Administrador -- (Baja)
+  (Baja) -- Sistema
+  Administrador -- (Asignar)
+  (Asignar) -- Sistema
+  Administrador -- (Consulta)
+  (Consulta) -- Sistema
+}
+@enduml

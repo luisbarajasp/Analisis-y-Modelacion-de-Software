@@ -1,0 +1,397 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login`(IN username VARCHAR(10) , IN pass VARCHAR(45))
+BEGIN
+	SELECT * from Administrador WHERE nomina = username AND contrasena = pass;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnoCRUD`(
+	IN action VARCHAR(45),
+	IN matricula VARCHAR(10),
+    IN nombre VARCHAR(45),
+    IN carrera VARCHAR(45),
+    IN estado VARCHAR(45),
+    IN deporte VARCHAR(45),
+    IN emailTutor VARCHAR(45),
+    IN salida DATETIME,
+    IN numero INT
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Alumno;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Alumno
+        VALUES (matricula, nombre, carrera, estado, deporte, emailTutor, salida, numero);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Alumno
+        SET nombre = nombre, carrera = carrera, estado = estado, deporte = deporte, emailTutor = emailTutor, salida = salida, numero = numero
+        WHERE 'matricula' = matricula;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Alumno
+        WHERE 'matricula' = matricula;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnoGet`(
+	IN action VARCHAR(45),
+	IN matricula VARCHAR(10)
+)
+BEGIN
+
+     -- SELECT ONE
+    IF action = "ONE" THEN
+        SELECT * FROM Alumno where 'matricula' = matricula;
+     END IF;
+
+    -- PERFIL MEDICO
+    IF action = "MEDICO" THEN
+        SELECT PerfilMedico.sangre, PerfilMedico.presion, PerfilMedico.alergias, PerfilMedico.padecimientos, PerfilMedico.image
+        FROM PerfilMedico
+        WHERE 'matricula' = matricula;
+     END IF;
+
+     -- PERFIL PSICOLOGICO
+    IF action = "PSICOLOGICO" THEN
+        SELECT PerfilPsicologico.padecimientos, PerfilPsicologico.image
+        FROM PerfilPsicologico
+        WHERE 'matricula' = matricula;
+     END IF;
+
+      -- HABITACION
+    IF action = "HABITACION" THEN
+        SELECT Alumno.numero
+        FROM Alumno
+        WHERE 'matricula' = matricula;
+     END IF;
+
+      -- ROOMATES
+    IF action = "ROOMATES" THEN
+        SELECT * FROM Alumno
+        WHERE numero = (SELECT Alumno.numero
+        FROM Alumno
+        WHERE 'matricula' = matricula);
+     END IF;
+
+     -- TODAS LAS ENTRADAS
+     IF action = "ENTRADAS" THEN
+        SELECT fecha FROM Entrada
+        WHERE 'matricula' = matricula
+        ORDER BY fecha DESC;
+     END IF;
+
+     -- AUSENCIAS
+     IF action = "AUSENCIAS" THEN
+        SELECT fecha FROM Ausencia
+        WHERE 'matricula' = matricula
+        ORDER BY fecha DESC;
+     END IF;
+
+     -- ANTIDOPING
+     IF action = "ANTIDOPING" THEN
+        SELECT Antidoping.fecha, Antidoping.resultado FROM PerfilMedico
+        natural join Antidoping
+        WHERE 'matricula' = matricula
+        ORDER BY Antidoping.fecha DESC;
+     END IF;
+
+     -- VISITAS
+     IF action = "VISITAS" THEN
+        SELECT Visita.nombre, Visita.fecha FROM Visita
+        WHERE 'matricula' = matricula
+        ORDER BY Visita.fecha DESC;
+     END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `personalCRUD`(
+	IN action VARCHAR(45),
+	IN nomina VARCHAR(10),
+    IN nombre VARCHAR(45),
+    IN tipo VARCHAR(45)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Personal;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Personal
+        VALUES (nomina, nombre, tipo);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Personal
+        SET nombre = nombre, tipo = tipo
+        WHERE 'nomina' = nomina;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Personal
+        WHERE 'nomina' = nomina;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `administradorCRUD`(
+	IN action VARCHAR(45),
+	IN nomina VARCHAR(10),
+    IN nombre VARCHAR(45),
+    IN contrasena VARCHAR(45)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Administrador;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Administrador
+        VALUES (nomina, nombre, contrasena);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Administrador
+        SET nombre = nombre, contrasena = contrasena
+        WHERE 'nomina' = nomina;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Administrador
+        WHERE 'nomina' = nomina;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `habitacionCRUD`(
+	IN action VARCHAR(45),
+	IN numero INT
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM habitacion;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO habitacion
+        VALUES (numero);
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM habitacion
+        WHERE 'numero' = numero;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `entradaCRUD`(
+	IN action VARCHAR(45),
+    IN id INT,
+    IN fecha DATETIME,
+	IN matricula VARCHAR(10)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Entrada;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Entrada
+        VALUES (fecha, matricula);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Entrada
+        SET fecha = fecha, matricula = matricula
+        WHERE 'id' = id;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Entrada
+        WHERE 'id' = id;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ausenciaCRUD`(
+	IN action VARCHAR(45),
+    IN id INT,
+    IN fecha DATETIME,
+	IN matricula VARCHAR(10)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Ausencia;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Ausencia
+        VALUES (fecha, matricula);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Ausencia
+        SET fecha = fecha, matricula = matricula
+        WHERE 'id' = id;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Ausencia
+        WHERE 'id' = id;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `visitaCRUD`(
+	IN action VARCHAR(45),
+    IN id INT,
+    IN nombre VARCHAR(45),
+    IN fecha DATETIME,
+	IN matricula VARCHAR(10)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Visita;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Visita
+        VALUES (nombre, fecha, matricula);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Visita
+        SET nombre = nombre, fecha = fecha, matricula = matricula
+        WHERE 'id' = id;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Visita
+        WHERE 'id' = id;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `perfilMedicoCRUD`(
+	IN action VARCHAR(45),
+    IN idPerfil INT,
+    IN sangre VARCHAR(45),
+    IN presion VARCHAR(45),
+	IN alergias VARCHAR(300),
+    IN padecimientos VARCHAR(300),
+    IN image LONGBLOB,
+    IN matricula VARCHAR(10)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM PerfilMedico;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO PerfilMedico
+        VALUES (sangre, presion, alergias, padecimientos, image, matricula);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE PerfilMedico
+        SET sangre = sangre, presion = presion, alergias = alergias, padecimientos = padecimientos, image = image, matricula = matricula
+        WHERE 'idPerfil' = idPerfil;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM PerfilMedico
+        WHERE 'idPerfil' = idPerfil;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `perfilPsicologicoCRUD`(
+	IN action VARCHAR(45),
+    IN id INT,
+    IN padecimientos VARCHAR(300),
+    IN image LONGBLOB,
+    IN matricula VARCHAR(10)
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM PerfilPsicologico;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO PerfilPsicologico
+        VALUES (padecimientos, image, matricula);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE PerfilPsicologico
+        SET padecimientos = padecimientos, image = image, matricula = matricula
+        WHERE 'id' = id;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM PerfilPsicologico
+        WHERE 'id' = id;
+    END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `antidopingCRUD`(
+	IN action VARCHAR(45),
+    IN id INT,
+    IN resultado VARCHAR(45),
+    IN fecha DATETIME,
+    IN idPerfil INT
+)
+BEGIN
+	-- SELECT
+    IF action = "SELECT" THEN
+        SELECT * FROM Antidoping;
+     END IF;
+
+    -- INSERT
+    IF action = "INSERT" THEN
+        INSERT INTO Antidoping
+        VALUES (resultado, fecha, idPerfil);
+    END IF;
+
+    -- UPDATE
+    IF action = "UPDATE" THEN
+        UPDATE Antidoping
+        SET resultado = resultado, fecha = fecha, idPerfil = idPerfil
+        WHERE 'id' = id;
+    END IF;
+
+    -- DELETE
+    IF action = "DELETE" THEN
+        DELETE FROM Antidoping
+        WHERE 'id' = id;
+    END IF;
+END

@@ -1,0 +1,10 @@
+@startuml
+actor Administrador
+actor Sistema
+Administrador -> (Baja)
+(Baja) <-right- Sistema
+
+(Baja) -down.> (Alumno) : include
+(Baja) -down.> (Habitacion) : include
+(Baja) -down.> (Asignacion) : include
+@enduml

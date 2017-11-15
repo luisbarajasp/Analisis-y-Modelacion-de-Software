@@ -1,0 +1,15 @@
+@startuml
+actor Administrador
+actor Sistema
+Administrador -> (Registro)
+(Registro) <-right- Sistema
+
+(Registro) -down.> (Alumno) : include
+(Alumno) -down.> (PerfilMedico) : include
+(Alumno) -down.> (PerfilPsicologico) : include
+(Registro) -down.> (Habitacion) : include
+(Registro) -down.> (Entrada) : include
+(Registro) -down.> (Ausencia) : include
+(Registro) -down.> (Visitas) : include
+
+@enduml

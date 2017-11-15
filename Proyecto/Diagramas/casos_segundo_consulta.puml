@@ -1,0 +1,13 @@
+@startuml
+actor Administrador
+actor Sistema
+Administrador -> (Consulta)
+(Consulta) <-right- Sistema
+
+(Consulta) -down.> (Alumno) : include
+(Consulta) -down.> (PerfilMedico) : include
+(Consulta) -down.> (Habitacion) : include
+(Consulta) -down.> (Entrada) : include
+(Consulta) -down.> (Ausencia) : include
+(Consulta) -down.> (Visitas) : include
+@enduml
